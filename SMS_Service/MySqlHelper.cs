@@ -12,11 +12,16 @@ namespace SMS_Service
     public class MySqlHelper
     {   
         MySql.Data.MySqlClient.MySqlConnection connection;
-        public MySqlHelper(string server, string user, string pass, string dbName)
+        public MySqlHelper(string server, string user, string pass, string dbName, string ssl)
         {
             string myConnectionString;
 
             myConnectionString = "server={0};uid={1};pwd={2};database={3}";
+            if(ssl != "1")
+            {
+                myConnectionString += ";SslMode=none";
+            }
+
             myConnectionString = string.Format(myConnectionString, server, user, pass, dbName);
 
             connection = new MySql.Data.MySqlClient.MySqlConnection();
@@ -135,7 +140,7 @@ namespace SMS_Service
                 var list = new List<Message>();
 
                 string query = @"
-                    select sms.id, sms.hostId, sms.deviceId, sms.sent, sms.device_hostId, sms_type.message, h.name as hostname
+                    select sms.id, sms.hostId, sms.deviceId, sms.sent, sms.device_hostId, sms_type.message, h.name as hostname, sms.createddate
                     from sms join sms_type on sms.type = sms_type.id and sms_type.allowsendsms = 1
                     join host h on h.id = sms.hostId
                     where sms.sent = 0 
@@ -162,7 +167,8 @@ namespace SMS_Service
                             sent = dataReader["sent"] + "",
                             device_hostId = dataReader["device_hostId"] + "",
                             message = dataReader["message"] + "",
-                            hostname = dataReader["hostname"] + ""
+                            hostname = dataReader["hostname"] + "",
+                            createddate = dataReader["createddate"] + ""
                         });
                     }
 
@@ -184,6 +190,8 @@ namespace SMS_Service
             catch (Exception ex)
             {
                 ServiceLog.WriteErrorLog(ex);
+                //close Connection
+                this.CloseConnection();
                 return new List<Message>();
             }
         }
@@ -238,6 +246,8 @@ namespace SMS_Service
             catch (Exception ex)
             {
                 ServiceLog.WriteErrorLog(ex);
+                //close Connection
+                this.CloseConnection();
                 return new List<People>();
             }
         }
@@ -315,23 +325,32 @@ namespace SMS_Service
         public void UpdateSmsStatusToSent(string id)
         {
             string query = "UPDATE sms SET sent=1 WHERE id=" + id;
-
-            //Open connection
-            if (this.OpenConnection() == true)
+            try
             {
-                //create mysql command
-                MySqlCommand cmd = new MySqlCommand();
-                //Assign the query using CommandText
-                cmd.CommandText = query;
-                //Assign the connection using Connection
-                cmd.Connection = connection;
+                //Open connection
+                if (this.OpenConnection() == true)
+                {
+                    //create mysql command
+                    MySqlCommand cmd = new MySqlCommand();
+                    //Assign the query using CommandText
+                    cmd.CommandText = query;
+                    //Assign the connection using Connection
+                    cmd.Connection = connection;
 
-                //Execute query
-                cmd.ExecuteNonQuery();
+                    //Execute query
+                    cmd.ExecuteNonQuery();
 
-                //close connection
+                    //close connection
+                    this.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceLog.WriteErrorLog(ex);
+                //close Connection
                 this.CloseConnection();
             }
+            
         }
     }
 }

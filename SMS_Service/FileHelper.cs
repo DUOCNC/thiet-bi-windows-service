@@ -42,6 +42,7 @@ namespace SMS_Service
                         case "MYSQL_DBNAME": objConfig.MySql.DBName = strInfo; break;
                         case "MYSQL_USER": objConfig.MySql.User = strInfo; break;
                         case "MYSQL_PASS": objConfig.MySql.Pass = strInfo; break;
+                        case "MYSQL_SSL": objConfig.MySql.SSL = strInfo; break;
                         case "SMS_USER": objConfig.SmsApi.User = strInfo; break;
                         case "SMS_PASS": objConfig.SmsApi.Pass = strInfo; break;
                     }

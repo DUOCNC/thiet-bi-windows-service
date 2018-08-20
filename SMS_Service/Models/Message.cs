@@ -15,5 +15,6 @@ namespace SMS_Service.Models
         public string device_hostId { get; set; }
         public string message { get; set; }
         public string hostname { get; set; }
+        public string createddate { get; set; }
     }
 }

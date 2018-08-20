@@ -10,5 +10,6 @@ namespace SMS_Service.Models
         public string DBName { get; set; }
         public string User { get; set; }
         public string Pass { get; set; }
+        public string SSL { get; set; }
     }
 }

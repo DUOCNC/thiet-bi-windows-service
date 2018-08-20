@@ -58,7 +58,7 @@ namespace SMS_Service
                         var people_Filter = lstPeople.Where(o => o.hostId == itemSms.hostId).ToList();
                         if (people_Filter != null && people_Filter.Count > 0)
                         {
-                            itemSms.message = itemSms.hostname + ": " + itemSms.message;
+                            itemSms.message = itemSms.hostname + ": " + itemSms.message + " - luc " + itemSms.createddate;
 
                             // List phone
                             var listPhone = string.Join(",", people_Filter.Select(o => o.phone).ToArray());
@@ -92,7 +92,7 @@ namespace SMS_Service
             }
 
             // Try to connect to DB
-            mySql = new MySqlHelper(config.MySql.Server, config.MySql.User, config.MySql.Pass, config.MySql.DBName);
+            mySql = new MySqlHelper(config.MySql.Server, config.MySql.User, config.MySql.Pass, config.MySql.DBName, config.MySql.SSL);
 
             sms = new SmsHelper(config.SmsApi.User, config.SmsApi.Pass);
 

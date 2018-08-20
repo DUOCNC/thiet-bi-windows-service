@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Sms" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://10.34.1.7:8088/Sms.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://10.34.1.7:8088/Sms.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.34.1.7:8088/Sms.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmsGatewayServices" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISms_Send_InputMessage">
+    <wsdl:part name="parameters" element="tns:Send" />
+  </wsdl:message>
+  <wsdl:message name="ISms_Send_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ProcessChanel_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcessChanel" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ProcessChanel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcessChanelResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_SendToAdministrator_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendToAdministrator" />
+  </wsdl:message>
+  <wsdl:message name="ISms_SendToAdministrator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendToAdministratorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetFirstScriptToSend_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFirstScriptToSend" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetFirstScriptToSend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFirstScriptToSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_UpdateStatusScript_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStatusScript" />
+  </wsdl:message>
+  <wsdl:message name="ISms_UpdateStatusScript_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStatusScriptResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_SendInScriptList_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendInScriptList" />
+  </wsdl:message>
+  <wsdl:message name="ISms_SendInScriptList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendInScriptListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_DeleteScriptTempFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScriptTempFile" />
+  </wsdl:message>
+  <wsdl:message name="ISms_DeleteScriptTempFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScriptTempFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsChanelList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsChanelList" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsChanelList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsChanelListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsByPrefix_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsByPrefix" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsByPrefix_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsByPrefixResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSms" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsSendedOfUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsSendedOfUser" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetSmsSendedOfUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSmsSendedOfUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetContactOfUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContactOfUser" />
+  </wsdl:message>
+  <wsdl:message name="ISms_GetContactOfUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContactOfUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactAdd_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContactAdd" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactAdd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContactAddResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContactUpdate" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContactUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContactDelete" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ContactDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContactDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptActive_InputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptActive" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptActive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptSeq_InputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptSeq" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptSeq_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptSeqResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptSendItemSeq_InputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptSendItemSeq" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptSendItemSeq_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptSendItemSeqResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptMaxItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptMaxItem" />
+  </wsdl:message>
+  <wsdl:message name="ISms_getScriptMaxItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getScriptMaxItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_CreateOtp_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateOtp" />
+  </wsdl:message>
+  <wsdl:message name="ISms_CreateOtp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateOtpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ReCreateOtp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReCreateOtp" />
+  </wsdl:message>
+  <wsdl:message name="ISms_ReCreateOtp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReCreateOtpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISms_VerifyOtp_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyOtp" />
+  </wsdl:message>
+  <wsdl:message name="ISms_VerifyOtp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyOtpResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISms">
+    <wsdl:operation name="Send">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/Send" message="tns:ISms_Send_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/SendResponse" message="tns:ISms_Send_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessChanel">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/ProcessChanel" message="tns:ISms_ProcessChanel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/ProcessChanelResponse" message="tns:ISms_ProcessChanel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendToAdministrator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/SendToAdministrator" message="tns:ISms_SendToAdministrator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/SendToAdministratorResponse" message="tns:ISms_SendToAdministrator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstScriptToSend">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetFirstScriptToSend" message="tns:ISms_GetFirstScriptToSend_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetFirstScriptToSendResponse" message="tns:ISms_GetFirstScriptToSend_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatusScript">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/UpdateStatusScript" message="tns:ISms_UpdateStatusScript_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/UpdateStatusScriptResponse" message="tns:ISms_UpdateStatusScript_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendInScriptList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/SendInScriptList" message="tns:ISms_SendInScriptList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/SendInScriptListResponse" message="tns:ISms_SendInScriptList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScriptTempFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/DeleteScriptTempFile" message="tns:ISms_DeleteScriptTempFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/DeleteScriptTempFileResponse" message="tns:ISms_DeleteScriptTempFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsChanelList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetSmsChanelList" message="tns:ISms_GetSmsChanelList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetSmsChanelListResponse" message="tns:ISms_GetSmsChanelList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsByPrefix">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetSmsByPrefix" message="tns:ISms_GetSmsByPrefix_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetSmsByPrefixResponse" message="tns:ISms_GetSmsByPrefix_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetSms" message="tns:ISms_GetSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetSmsResponse" message="tns:ISms_GetSms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsSendedOfUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetSmsSendedOfUser" message="tns:ISms_GetSmsSendedOfUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetSmsSendedOfUserResponse" message="tns:ISms_GetSmsSendedOfUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContactOfUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/GetContactOfUser" message="tns:ISms_GetContactOfUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/GetContactOfUserResponse" message="tns:ISms_GetContactOfUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContactAdd">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/ContactAdd" message="tns:ISms_ContactAdd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/ContactAddResponse" message="tns:ISms_ContactAdd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContactUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/ContactUpdate" message="tns:ISms_ContactUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/ContactUpdateResponse" message="tns:ISms_ContactUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContactDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/ContactDelete" message="tns:ISms_ContactDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/ContactDeleteResponse" message="tns:ISms_ContactDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getScriptActive">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/getScriptActive" message="tns:ISms_getScriptActive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/getScriptActiveResponse" message="tns:ISms_getScriptActive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getScriptSeq">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/getScriptSeq" message="tns:ISms_getScriptSeq_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/getScriptSeqResponse" message="tns:ISms_getScriptSeq_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getScriptSendItemSeq">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/getScriptSendItemSeq" message="tns:ISms_getScriptSendItemSeq_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/getScriptSendItemSeqResponse" message="tns:ISms_getScriptSendItemSeq_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getScriptMaxItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/getScriptMaxItem" message="tns:ISms_getScriptMaxItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/getScriptMaxItemResponse" message="tns:ISms_getScriptMaxItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOtp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/CreateOtp" message="tns:ISms_CreateOtp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/CreateOtpResponse" message="tns:ISms_CreateOtp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReCreateOtp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/ReCreateOtp" message="tns:ISms_ReCreateOtp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/ReCreateOtpResponse" message="tns:ISms_ReCreateOtp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyOtp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISms/VerifyOtp" message="tns:ISms_VerifyOtp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISms/VerifyOtpResponse" message="tns:ISms_VerifyOtp_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISms" type="tns:ISms">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Send">
+      <soap:operation soapAction="http://tempuri.org/ISms/Send" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessChanel">
+      <soap:operation soapAction="http://tempuri.org/ISms/ProcessChanel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendToAdministrator">
+      <soap:operation soapAction="http://tempuri.org/ISms/SendToAdministrator" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstScriptToSend">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetFirstScriptToSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatusScript">
+      <soap:operation soapAction="http://tempuri.org/ISms/UpdateStatusScript" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendInScriptList">
+      <soap:operation soapAction="http://tempuri.org/ISms/SendInScriptList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScriptTempFile">
+      <soap:operation soapAction="http://tempuri.org/ISms/DeleteScriptTempFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsChanelList">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetSmsChanelList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsByPrefix">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetSmsByPrefix" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSms">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmsSendedOfUser">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetSmsSendedOfUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContactOfUser">
+      <soap:operation soapAction="http://tempuri.org/ISms/GetContactOfUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContactAdd">
+      <soap:operation soapAction="http://tempuri.org/ISms/ContactAdd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContactUpdate">
+      <soap:operation soapAction="http://tempuri.org/ISms/ContactUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContactDelete">
+      <soap:operation soapAction="http://tempuri.org/ISms/ContactDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getScriptActive">
+      <soap:operation soapAction="http://tempuri.org/ISms/getScriptActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getScriptSeq">
+      <soap:operation soapAction="http://tempuri.org/ISms/getScriptSeq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getScriptSendItemSeq">
+      <soap:operation soapAction="http://tempuri.org/ISms/getScriptSendItemSeq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getScriptMaxItem">
+      <soap:operation soapAction="http://tempuri.org/ISms/getScriptMaxItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOtp">
+      <soap:operation soapAction="http://tempuri.org/ISms/CreateOtp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReCreateOtp">
+      <soap:operation soapAction="http://tempuri.org/ISms/ReCreateOtp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyOtp">
+      <soap:operation soapAction="http://tempuri.org/ISms/VerifyOtp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sms">
+    <wsdl:port name="BasicHttpBinding_ISms" binding="tns:BasicHttpBinding_ISms">
+      <soap:address location="http://10.34.1.7:8088/Sms.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

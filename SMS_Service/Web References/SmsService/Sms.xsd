@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SmsGatewayServices" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SmsGatewayServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="SmsScript">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DepartId" type="xs:short" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Script" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScriptListFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" type="xs:short" />
+      <xs:element minOccurs="0" name="TimeExe" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsScript" nillable="true" type="tns:SmsScript" />
+  <xs:complexType name="ArrayOfSmsChanel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SmsChanel" nillable="true" type="tns:SmsChanel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSmsChanel" nillable="true" type="tns:ArrayOfSmsChanel" />
+  <xs:complexType name="SmsChanel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowUnicode" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ChanelId" type="xs:short" />
+      <xs:element minOccurs="0" name="MaxSmsInPackage" type="xs:short" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SendReceiveRate" type="xs:short" />
+      <xs:element minOccurs="0" name="SeqDelayBeforReceive" type="xs:short" />
+      <xs:element minOccurs="0" name="SeqDelayBeforSend" type="xs:short" />
+      <xs:element minOccurs="0" name="SeqTime" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsChanel" nillable="true" type="tns:SmsChanel" />
+  <xs:complexType name="ArrayOfReciveSms">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReciveSms" nillable="true" type="tns:ReciveSms" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReciveSms" nillable="true" type="tns:ArrayOfReciveSms" />
+  <xs:complexType name="ReciveSms">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChanelIn" type="xs:short" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReceiveTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Type" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReciveSms" nillable="true" type="tns:ReciveSms" />
+  <xs:complexType name="ArrayOfSendSms">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SendSms" nillable="true" type="tns:SendSms" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSendSms" nillable="true" type="tns:ArrayOfSendSms" />
+  <xs:complexType name="SendSms">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChanelOut" type="xs:short" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DepartId" type="xs:short" />
+      <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequireTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SendTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Sender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="xs:short" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendSms" nillable="true" type="tns:SendSms" />
+  <xs:complexType name="ArrayOfPesonalContacts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PesonalContacts" nillable="true" type="tns:PesonalContacts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPesonalContacts" nillable="true" type="tns:ArrayOfPesonalContacts" />
+  <xs:complexType name="PesonalContacts">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PesonalContacts" nillable="true" type="tns:PesonalContacts" />
+</xs:schema>

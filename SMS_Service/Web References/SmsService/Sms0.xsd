@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://10.34.1.7:8088/Sms.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmsGatewayServices" />
+  <xs:element name="Send">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Content" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Type" type="xs:short" />
+        <xs:element minOccurs="0" name="_Chanel" type="xs:short" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SendResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcessChanel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Chanel" type="xs:short" />
+        <xs:element minOccurs="0" name="_MaxSmsInPackage" type="xs:short" />
+        <xs:element minOccurs="0" name="IsSendEnd" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcessChanelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ProcessChanelResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendToAdministrator">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Content" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Type" type="xs:short" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendToAdministratorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SendToAdministratorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFirstScriptToSend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFirstScriptToSendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetFirstScriptToSendResult" nillable="true" type="q1:SmsScript" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStatusScript">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Item" type="xs:int" />
+        <xs:element minOccurs="0" name="_Status" type="xs:short" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStatusScriptResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateStatusScriptResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInScriptList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Item" type="xs:int" />
+        <xs:element minOccurs="0" name="_ScriptListFile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_MaxNumberSend" type="xs:int" />
+        <xs:element minOccurs="0" name="_Sender" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserId" type="xs:int" />
+        <xs:element minOccurs="0" name="_DepartId" type="xs:short" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInScriptListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SendInScriptListResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteScriptTempFile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_ScriptListFile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteScriptTempFileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteScriptTempFileResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsChanelList">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsChanelListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetSmsChanelListResult" nillable="true" type="q2:ArrayOfSmsChanel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsByPrefix">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Prefix" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_MaxItem" type="xs:int" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsByPrefixResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetSmsByPrefixResult" nillable="true" type="q3:ArrayOfReciveSms" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSms">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_MaxItem" type="xs:int" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetSmsResult" nillable="true" type="q4:ArrayOfReciveSms" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsSendedOfUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSmsSendedOfUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetSmsSendedOfUserResult" nillable="true" type="q5:ArrayOfSendSms" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetContactOfUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetContactOfUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SmsGatewayServices" minOccurs="0" name="GetContactOfUserResult" nillable="true" type="q6:ArrayOfPesonalContacts" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactAdd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_GroupName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Tel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Info" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactAddResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ContactAddResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactUpdate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Id" type="xs:long" />
+        <xs:element minOccurs="0" name="_Name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_GroupName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Tel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Info" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactUpdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ContactUpdateResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactDelete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_Id" type="xs:long" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContactDeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ContactDeleteResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptActive">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptActiveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getScriptActiveResult" type="xs:short" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptSeq">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptSeqResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getScriptSeqResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptSendItemSeq">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptSendItemSeqResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getScriptSendItemSeqResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptMaxItem">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getScriptMaxItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getScriptMaxItemResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOtp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_SysId" type="xs:short" />
+        <xs:element minOccurs="0" name="_Mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_vUserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOtpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateOtpResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReCreateOtp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_SysId" type="xs:short" />
+        <xs:element minOccurs="0" name="_Chanel" type="xs:short" />
+        <xs:element minOccurs="0" name="_Mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_vUserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_UserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReCreateOtpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ReCreateOtpResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerifyOtp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_SysId" type="xs:short" />
+        <xs:element minOccurs="0" name="_vUserName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_Otp" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerifyOtpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="VerifyOtpResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

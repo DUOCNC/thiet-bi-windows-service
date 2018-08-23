@@ -58,7 +58,7 @@ namespace SMS_Service
                         var people_Filter = lstPeople.Where(o => o.hostId == itemSms.hostId).ToList();
                         if (people_Filter != null && people_Filter.Count > 0)
                         {
-                            itemSms.message = itemSms.hostname + ": " + itemSms.message + " - luc " + itemSms.createddate;
+                            itemSms.message = convertToUnSign(itemSms.hostname + ": " + itemSms.message) + " - luc " + itemSms.createddate;
 
                             // List phone
                             var listPhone = string.Join(",", people_Filter.Select(o => o.phone).ToArray());

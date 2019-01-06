@@ -133,17 +133,17 @@ namespace SMS_Service
             }
         }
 
-        public List<Message> Select_SMSPending()
+        public List<Message> Select_SMSPending_Type_Warning()
         {
             try
             {
                 var list = new List<Message>();
 
                 string query = @"
-                    select sms.id, sms.hostId, sms.deviceId, sms.sent, sms.device_hostId, sms_type.message, h.name as hostname, sms.createddate
+                    select sms.id, sms.hostId, sms.deviceId, sms.sent, sms.device_hostId, sms_type.message, h.name as hostname, DATE_FORMAT(sms.createddate, "" %d-%m-%Y %T"") as createddate
                     from sms join sms_type on sms.type = sms_type.id and sms_type.allowsendsms = 1
-                    join host h on h.id = sms.hostId
-                    where sms.sent = 0 
+                    join host h on h.id = sms.hostId and h.allow_send_sms=1
+                    where sms.sent = 0 and sms.sms_groupId= " + SMSGroup.GROUP_WARNING + @"
                     order by sms.createddate asc
                 ";
 
@@ -196,6 +196,66 @@ namespace SMS_Service
             }
         }
 
+        public List<Message> Select_SMSPending_Type_ConnectionIssue()
+        {
+            try
+            {
+                var list = new List<Message>();
+
+                string query = @"
+                    select sms.id, sms.hostId,h.name as hostname, DATE_FORMAT(sms.createddate, "" %d-%m-%Y %T"") as createddate, sms_type.message
+                    from sms join sms_type on sms.type = sms_type.id and sms_type.allowsendsms = 1
+                    join host h on h.id = sms.hostId and h.allow_send_sms=1
+                    where sms.sent = 0 and sms.sms_groupId= " + SMSGroup.GROUP_CONNECTION_ISSUE + @"
+                    order by sms.createddate asc
+                ";
+
+                //Create a list to store the result
+                //Open connection
+                if (this.OpenConnection() == true)
+                {
+                    //Create Command
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    //Create a data reader and Execute the command
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //Read the data and store them in the list
+                    while (dataReader.Read())
+                    {
+                        list.Add(new Message()
+                        {
+                            id = dataReader["id"] + "",
+                            hostId = dataReader["hostId"] + "",
+                            message = dataReader["message"] + "",
+                            hostname = dataReader["hostname"] + "",
+                            createddate = dataReader["createddate"] + ""
+                        });
+                    }
+
+                    //close Data Reader
+                    dataReader.Close();
+
+                    //close Connection
+                    this.CloseConnection();
+
+                    //return list to be displayed
+                    return list;
+                }
+                else
+                {
+                    return list;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ServiceLog.WriteErrorLog(ex);
+                //close Connection
+                this.CloseConnection();
+                return new List<Message>();
+            }
+        }
+
         public List<People> Select_PeopleToSend()
         {
             try
@@ -205,7 +265,8 @@ namespace SMS_Service
                 string query = @"
                     select uh.hostId, uh.userId, u.phone
                     from user_host uh join user u on uh.userId = u.Id 
-                    where u.status = 1 and sendsms = 1
+                    join host h on h.id = uh.hostId
+                    where u.status = 1 and sendsms = 1 and h.allow_send_sms=1
                     order by uh.hostId
                 ";
 

@@ -16,7 +16,6 @@ namespace SMS_Service
     {
         private Timer timeDelay = null;
         private Config config = null;
-        int count;
         MySqlHelper mySql = null;
         SmsHelper sms = null;
 
@@ -41,6 +40,18 @@ namespace SMS_Service
 
         public void WorkProcess(object sender, System.Timers.ElapsedEventArgs e)
         {
+            System.Threading.Thread newThread_Warning = new System.Threading.Thread(SendSMS_Warning);
+            newThread_Warning.Start();
+
+            System.Threading.Thread newThread_ConnectionIssue = new System.Threading.Thread(SendSMS_ConnectionIssue);
+            newThread_ConnectionIssue.Start();
+        }
+
+        public void SendSMS_Warning()
+        {
+            // Try to connect to DB
+            var mySql = new MySqlHelper(config.MySql.Server, config.MySql.User, config.MySql.Pass, config.MySql.DBName, config.MySql.SSL);
+
             // Get data and send message
             // Try to send a message
             // get all people to send sms
@@ -48,7 +59,7 @@ namespace SMS_Service
             // ServiceLog.WriteErrorLog("lstPeople:" + lstPeople.Count);
             if (lstPeople != null && lstPeople.Count > 0)
             {
-                var lstSms = mySql.Select_SMSPending();
+                var lstSms = mySql.Select_SMSPending_Type_Warning();
                 // ServiceLog.WriteErrorLog("lstSms:" + lstSms.Count);
                 if (lstSms != null && lstSms.Count > 0)
                 {
@@ -56,19 +67,31 @@ namespace SMS_Service
                     foreach (var itemSms in lstSms)
                     {
                         var people_Filter = lstPeople.Where(o => o.hostId == itemSms.hostId).ToList();
+                        var people_Filter_phone_number = new List<string>();
+
                         if (people_Filter != null && people_Filter.Count > 0)
+                            people_Filter_phone_number = people_Filter.Select(o => o.phone).ToList();
+
+                        // List default
+                        if (config.SmsApi.ListPeopleByPhoneNumber != null && config.SmsApi.ListPeopleByPhoneNumber.Count > 0)
+                            people_Filter_phone_number.AddRange(config.SmsApi.ListPeopleByPhoneNumber);
+
+                        // Distinct
+                        people_Filter_phone_number = people_Filter_phone_number.Distinct().ToList();
+
+                        if (people_Filter_phone_number != null && people_Filter_phone_number.Count > 0)
                         {
                             itemSms.message = convertToUnSign(itemSms.hostname + ": " + itemSms.message) + " - luc " + itemSms.createddate;
 
                             // List phone
-                            var listPhone = string.Join(",", people_Filter.Select(o => o.phone).ToArray());
-                            ServiceLog.WriteErrorLog(string.Format("SMS sending...: HostId: {0}; SMSId: {1}; List Phone number: {2}", itemSms.hostId, itemSms.id, listPhone));
-                            
+                            var listPhone = string.Join(",", people_Filter_phone_number);
+                            ServiceLog.WriteErrorLog(string.Format("[GROUP=" + SMSGroup.GROUP_WARNING + "] SMS sending...: HostId: {0}; SMSId: {1}; List Phone number: {2}", itemSms.hostId, itemSms.id, listPhone));
+
                             // send each person
-                            foreach (var itemPeople in people_Filter)
+                            foreach (var phoneNumber in people_Filter_phone_number)
                             {
                                 // Send message
-                                if (sms.SendMessage(itemPeople.phone, itemSms.message))
+                                if (sms.SendMessage(phoneNumber, itemSms.message))
                                 {
                                     // Update message record to sent
                                     mySql.UpdateSmsStatusToSent(itemSms.id);
@@ -80,11 +103,69 @@ namespace SMS_Service
                 } // End if (lstSms != null && lstSms.Count > 0)
             }
         }
+
+        public void SendSMS_ConnectionIssue()
+        {
+            // Try to connect to DB
+            var mySql = new MySqlHelper(config.MySql.Server, config.MySql.User, config.MySql.Pass, config.MySql.DBName, config.MySql.SSL);
+
+            // Get data and send message
+            // Try to send a message
+            // get all people to send sms
+            var lstPeople = mySql.Select_PeopleToSend();
+            // ServiceLog.WriteErrorLog("lstPeople:" + lstPeople.Count);
+            if (lstPeople != null && lstPeople.Count > 0)
+            {
+                var lstSms = mySql.Select_SMSPending_Type_ConnectionIssue();
+                // ServiceLog.WriteErrorLog("lstSms:" + lstSms.Count);
+                if (lstSms != null && lstSms.Count > 0)
+                {
+                    //Sending message...
+                    foreach (var itemSms in lstSms)
+                    {
+                        var people_Filter = lstPeople.Where(o => o.hostId == itemSms.hostId).ToList();
+                        var people_Filter_phone_number = new List<string>();
+
+                        if (people_Filter != null && people_Filter.Count > 0)
+                            people_Filter_phone_number = people_Filter.Select(o => o.phone).ToList();
+
+                        // List default
+                        if (config.SmsApi.ListPeopleByPhoneNumber != null && config.SmsApi.ListPeopleByPhoneNumber.Count > 0)
+                            people_Filter_phone_number.AddRange(config.SmsApi.ListPeopleByPhoneNumber);
+
+                        // Distinct
+                        people_Filter_phone_number = people_Filter_phone_number.Distinct().ToList();
+
+                        if (people_Filter_phone_number != null && people_Filter_phone_number.Count > 0)
+                        {
+                            itemSms.message = convertToUnSign(itemSms.hostname + ": " + itemSms.message) + " - luc " + itemSms.createddate;
+
+                            // List phone
+                            var listPhone = string.Join(",", people_Filter_phone_number);
+                            ServiceLog.WriteErrorLog(string.Format("[GROUP=" + SMSGroup.GROUP_CONNECTION_ISSUE + "] SMS sending...: HostId: {0}; SMSId: {1}; List Phone number: {2}", itemSms.hostId, itemSms.id, listPhone));
+
+                            // send each person
+                            foreach (var phoneNumber in people_Filter_phone_number)
+                            {
+                                // Send message
+                                if (sms.SendMessage(phoneNumber, itemSms.message))
+                                {
+                                    // Update message record to sent
+                                    mySql.UpdateSmsStatusToSent(itemSms.id);
+                                }
+                            }
+                        } // End if (people_Filter != null && people_Filter.Count > 0)
+                    } // End foreach (var itemSms in lstSms)
+
+                } // End if (lstSms != null && lstSms.Count > 0)
+            }
+        }
+
         protected override void OnStart(string[] args)
         {
             // Load config
             config = FileHelper.ReadConfigFile();
-            if(config.Exception != null)
+            if (config.Exception != null)
             {
                 ServiceLog.WriteErrorLog(config.Exception);
                 // Stop service

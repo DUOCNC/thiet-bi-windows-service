@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 //using System.Linq;
@@ -45,7 +46,33 @@ namespace SMS_Service
                         case "MYSQL_SSL": objConfig.MySql.SSL = strInfo; break;
                         case "SMS_USER": objConfig.SmsApi.User = strInfo; break;
                         case "SMS_PASS": objConfig.SmsApi.Pass = strInfo; break;
+                        case "SMS_PHONE_NUMBERS": objConfig.SmsApi.StringPhoneNumber = strInfo; break;
+                        case "SMS_PHONE_NUMBERS_CHAR": objConfig.SmsApi.PhoneNumberChar = strInfo; break;
                     }
+                }
+
+                if (string.IsNullOrEmpty(objConfig.SmsApi.PhoneNumberChar))
+                {
+                    objConfig.SmsApi.PhoneNumberChar = ",";
+                }
+
+                if (!string.IsNullOrEmpty(objConfig.SmsApi.StringPhoneNumber))
+                {
+                    var arr = (objConfig.SmsApi.StringPhoneNumber.Split(objConfig.SmsApi.PhoneNumberChar.ToCharArray()[0]));
+                    objConfig.SmsApi.ListPeopleByPhoneNumber = new List<string>();
+
+                    if (arr != null && arr.Length > 0)
+                    {
+                        foreach (var item in arr)
+                        {
+                            var newItem = item.Trim();
+                            if (string.IsNullOrEmpty(newItem))
+                                continue;
+
+                            objConfig.SmsApi.ListPeopleByPhoneNumber.Add(newItem);
+                        }
+                    }
+
                 }
 
                 return objConfig;

@@ -9,6 +9,7 @@ using System.Text;
 using System.Timers;
 using SMS_Service.Models;
 using System.Linq;
+using System.Collections;
 
 namespace SMS_Service
 {
@@ -18,6 +19,9 @@ namespace SMS_Service
         private Config config = null;
         MySqlHelper mySql = null;
         SmsHelper sms = null;
+        Hashtable hasDataStatus = null;
+        const string strWarning = "Warning";
+        const string strConnectionIssue = "ConnectionIssue";
 
         public SMS_Service()
         {
@@ -40,11 +44,19 @@ namespace SMS_Service
 
         public void WorkProcess(object sender, System.Timers.ElapsedEventArgs e)
         {
-            System.Threading.Thread newThread_Warning = new System.Threading.Thread(SendSMS_Warning);
-            newThread_Warning.Start();
+            if (!hasDataStatus.ContainsKey(strWarning) || (bool)hasDataStatus[strWarning] == true)
+            {
+                hasDataStatus[strWarning] = false;
+                System.Threading.Thread newThread_Warning = new System.Threading.Thread(SendSMS_Warning);
+                newThread_Warning.Start();
+            }
 
-            System.Threading.Thread newThread_ConnectionIssue = new System.Threading.Thread(SendSMS_ConnectionIssue);
-            newThread_ConnectionIssue.Start();
+            if (!hasDataStatus.ContainsKey(strConnectionIssue) || (bool)hasDataStatus[strConnectionIssue] == true)
+            {
+                hasDataStatus[strConnectionIssue] = false;
+                System.Threading.Thread newThread_ConnectionIssue = new System.Threading.Thread(SendSMS_ConnectionIssue);
+                newThread_ConnectionIssue.Start();
+            }
         }
 
         public void SendSMS_Warning()
@@ -102,6 +114,9 @@ namespace SMS_Service
 
                 } // End if (lstSms != null && lstSms.Count > 0)
             }
+
+            // Set status
+            hasDataStatus[strWarning] = true;
         }
 
         public void SendSMS_ConnectionIssue()
@@ -159,10 +174,14 @@ namespace SMS_Service
 
                 } // End if (lstSms != null && lstSms.Count > 0)
             }
+
+            // Set status
+            hasDataStatus[strConnectionIssue] = true;
         }
 
         protected override void OnStart(string[] args)
         {
+            hasDataStatus = new Hashtable();
             // Load config
             config = FileHelper.ReadConfigFile();
             if (config.Exception != null)

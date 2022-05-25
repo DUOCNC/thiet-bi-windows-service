@@ -48,6 +48,7 @@ namespace SMS_Service
                         case "SMS_PASS": objConfig.SmsApi.Pass = strInfo; break;
                         case "SMS_PHONE_NUMBERS": objConfig.SmsApi.StringPhoneNumber = strInfo; break;
                         case "SMS_PHONE_NUMBERS_CHAR": objConfig.SmsApi.PhoneNumberChar = strInfo; break;
+                        case "SMS_API": objConfig.SmsApi.APIEndpoint = strInfo; break;
                     }
                 }
 

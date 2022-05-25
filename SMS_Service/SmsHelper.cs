@@ -8,21 +8,24 @@ namespace SMS_Service
 {
     public class SmsHelper
     {
-        public string User { get; set; }
-        public string Pass { get; set; }
+        private APIHelper SMSAPI { get; set; }
 
-        public SmsHelper(string User, string Pass)
+        public SmsHelper(string APIURL, string User, string Pass)
         {
-            this.User = User;
-            this.Pass = Pass;
+            this.SMSAPI = new APIHelper(APIURL, User, Pass);
         }
 
-        public bool SendMessage(string PhoneNumber, string Message, short Type = 0, bool TypeSpecified = false, short Channel = 0, bool ChannelSpecified = false)
+        public bool SendMessage(string PhoneNumber, string Message)
         {
             try
             {
-                SmsService.Sms a = new SmsService.Sms();
-                a.Send(PhoneNumber, Message, Type, TypeSpecified, Channel, ChannelSpecified, this.User, this.Pass);
+                var response = SMSAPI.SendSMS(PhoneNumber, Message, "");
+                if (response.code != 0)
+                {
+                    var errMsg = "Error code: " + response.code + "; Message: " + response.msg;
+                    ServiceLog.WriteErrorLog(errMsg);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

@@ -194,7 +194,7 @@ namespace SMS_Service
             // Try to connect to DB
             mySql = new MySqlHelper(config.MySql.Server, config.MySql.User, config.MySql.Pass, config.MySql.DBName, config.MySql.SSL);
 
-            sms = new SmsHelper(config.SmsApi.User, config.SmsApi.Pass);
+            sms = new SmsHelper(config.SmsApi.APIEndpoint, config.SmsApi.User, config.SmsApi.Pass);
 
             timeDelay = new Timer();
             this.timeDelay.Interval = config.Interval;

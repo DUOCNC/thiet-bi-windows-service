@@ -12,6 +12,7 @@ namespace SMS_Service.Models
         public string Pass { get; set; }
         public string StringPhoneNumber { get; set; }
         public string PhoneNumberChar { get; set; }
+        public string APIEndpoint { get; set; }
         public List<string> ListPeopleByPhoneNumber { get; set; }
     }
 }

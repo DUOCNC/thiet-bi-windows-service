@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\MySqlConnectorvForNet4.5.2\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -58,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIHelper.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MySqlConfig.cs" />
@@ -87,15 +91,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web References\SmsService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Libs\MySqlConnectorvForNet4.5.2\MySql.Data.InstallState" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,35 +104,6 @@
     <None Include="ReleaseVesion\20190401\20190401.rar" />
     <None Include="uninstall.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Web References\SmsService\PesonalContacts.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\SmsService\ReciveSms.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\SmsService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\SmsService\SendSms.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\SmsService\Sms.wsdl" />
-    <None Include="Web References\SmsService\Sms.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\SmsService\Sms0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\SmsService\Sms1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\SmsService\SmsChanel.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\SmsService\SmsScript.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -165,26 +136,12 @@
     <Content Include="Libs\MySqlConnectorvForNet4.5.2\MySql.Data.xml" />
     <Content Include="Libs\MySqlConnectorvForNet4.5.2\MySql.Web.dll" />
     <Content Include="Libs\MySqlConnectorvForNet4.5.2\MySql.Web.xml" />
-    <None Include="Web References\SmsService\Sms.disco" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://10.34.1.7:8088/Sms.svc">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\SmsService\</RelPath>
-      <UpdateFromURL>http://10.34.1.7:8088/Sms.svc</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>SMS_Service_SmsService_Sms</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

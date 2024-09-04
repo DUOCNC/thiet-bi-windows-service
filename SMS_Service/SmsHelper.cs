@@ -19,8 +19,10 @@ namespace SMS_Service
         {
             try
             {
-                var response = SMSAPI.SendSMS(PhoneNumber, Message, "");
-                if (response.code != 0)
+                Task<SMSResponse> task =  SMSAPI.SendSMS(PhoneNumber, Message, "");
+                SMSResponse response = task.Result;
+
+                if (response.code != 200)
                 {
                     var errMsg = "Error code: " + response.code + "; Message: " + response.msg;
                     ServiceLog.WriteErrorLog(errMsg);

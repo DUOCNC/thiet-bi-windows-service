@@ -2,16 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 //using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 //using System.Threading.Tasks;
 using System.Xml;
 using Newtonsoft.Json;
 using SMS_Service.Models;
+using Telegram.Bot;
 
 namespace SMS_Service
 {
@@ -37,11 +41,12 @@ namespace SMS_Service
             return System.Convert.ToBase64String(plainTextBytes);
         }
 
-        public SMSResponse SendSMS(string sdt, string noidung, string ghichu)
+        public Task<SMSResponse> SendSMS(string sdt, string noidung, string ghichu)
         {
-            SMSRequest smsRequest = new SMSRequest(sdt, noidung, ghichu, this.User, this.EncodeBase64Password);
+            //SMSRequest smsRequest = new SMSRequest(sdt, noidung, ghichu, this.User, this.EncodeBase64Password);
+            //return CallAPIToSendSMS(smsRequest);
 
-            return CallAPIToSendSMS(smsRequest);
+            return SendMessageTelegram(sdt, noidung);
         }
 
         private SMSResponse CallAPIToSendSMS(SMSRequest smsRequest)
@@ -63,6 +68,28 @@ namespace SMS_Service
                 var result = JsonConvert.DeserializeObject<SMSResponse>(resultString);
 
                 return result;
+            }
+        }
+
+        private async Task<SMSResponse> SendMessageTelegram(string chatId, string message)
+        {
+
+            // Đọc botToken từ app.config
+            string botToken = ConfigurationManager.AppSettings["BotToken"];
+
+            if (string.IsNullOrEmpty(botToken))
+                return new SMSResponse { code = 500 , msg = "Không tìm thấy BotToken trong app.config" };
+
+            var botClient = new TelegramBotClient(botToken);
+
+            try
+            {
+                await botClient.SendTextMessageAsync(chatId, message);
+                return new SMSResponse { code = 200, msg = "Gửi thông báo thành công" };
+            }
+            catch (Exception ex)
+            {
+                return new SMSResponse { code = 500, msg = $"Lỗi khi gửi đến {chatId}: {ex.Message}" };
             }
         }
     }
